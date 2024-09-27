@@ -1,26 +1,37 @@
 import sys
 input = sys.stdin.readline
 
-def solution(PS):
-    VPS = []
+def VPS(PS):
+    stack = []
     
-    for i in range(len(PS)):
-        pop = PS[i]
-        if pop == '(':
-            VPS.append(pop)
+    for c in PS:
+        if c == '(':
+            stack.append(c)
             continue
-        
-        if VPS and (pop!=VPS[-1]):
-             VPS.pop()
+        if not (stack):
+            return False
         else:
-            VPS.append(pop)
-    
-    if VPS:
+            if (stack[-1]=='('):
+                stack.pop()
+                continue
+        stack.append(c)
+
+    if stack:
+        return False
+    return True
+
+def solution(n):
+    for i in range(n):
+        PS = input().strip()
+        if ('(' not in PS) or (')' not in PS):
+            print("NO")
+            continue
+        if VPS(PS):
+            print("YES")
+            continue
         print("NO")
-    else:
-        print("YES")
     return
 
 if __name__ == '__main__':
-    for i in range(int(input())): 
-        solution(input().strip())
+    n = int(input())
+    solution(n)
