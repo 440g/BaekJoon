@@ -1,25 +1,23 @@
-import sys 
+import sys
 input = sys.stdin.readline
 
 def solution(board, moves):
-    answer = 0
+    stack = []
     h = len(board)
-    moves_cnt = len(moves)
-    basket = []
+    answer = 0
     
-    for i in range(moves_cnt):
-        pos = moves[i]-1
-        for j in range(h):
-            if board[j][pos] == 0:
+    for pos in moves:
+        for i in range(h):
+            if board[i][pos-1] == 0:
                 continue
-            doll = board[j][pos]
-            board[j][pos] = 0
             
-            if (basket) and (doll == basket[-1]):
-                basket.pop()
+            doll = board[i][pos-1]
+            board[i][pos-1] = 0
+            if stack and stack[-1]==doll:
+                stack.pop()
                 answer += 2
             else:
-                basket.append(doll)
+                stack.append(doll) 
             break
-    
+        
     return answer
